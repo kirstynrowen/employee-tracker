@@ -1,12 +1,12 @@
 //import inquirer, mysql, console.table
 const inquirer = require('inquirer');
 const table = require('console.table');
-//import db materials
+//import db connection
 const db = require('./db/connection');
 
 //connect to database
 db.connect(() => {
-    init();
+    homePage();
 })
 
 function homePage () {
@@ -22,7 +22,7 @@ function homePage () {
                 'View All Employees',
                 'Add a Department',
                 'Add a role',
-                'Ass an Employee',
+                'Add an Employee',
                 'Update an Employee Role',
             ]
         }
@@ -33,4 +33,30 @@ function homePage () {
 };
 
 //functions for sql queries
+//view all departments
+function viewDepartments() {
+    db.query(`SELECT * FROM department`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        console.table(result);
+        homePage();
+    })
+}
 
+//view all roles
+
+
+//view all employees
+
+
+//add a department
+
+
+//add a role
+
+
+//add an employee
+
+
+//update an employee
