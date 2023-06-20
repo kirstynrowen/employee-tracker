@@ -43,13 +43,13 @@ function homePage () {
             addDepartment();
             break;
         case 'Add a role':
+            addRole();
             break;
-
         case 'Add an Employee':
-
+            addEmployee();
             break;
         case 'Update an Employee Role':
-
+            updateEmployee();
             break;
       }  
     })
@@ -107,40 +107,79 @@ function addDepartment() {
             if (err) {
                 console.log(err);
             }
+            console.log(`\nSuccessfully added new department!\n`);
             console.table(result);
             viewDepartments();
-        })
+        });
     });
 };
 //add a role
-
+function addRole() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Please enter the title of the new role:',
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Please enter the salary for this new role:',
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'Please enter the department id:',
+        },
+    ])
+    .then ((response) => {
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`, [response.title, response.salary, response.department_id], (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log(`\nSuccessfully added new role!\n`);
+            viewRoles();
+        })
+    })
+}
 
 //add an employee
-// function addEmployee() {
-//     inquirer
-//         .prompt([
-//             {
-//                 type: 'input',
-//                 name: 'first_name',
-//                 message: 'Please enter employee first name:',
-//             },
-//             {
-//                 type: 'input',
-//                 name: 'last_name',
-//                 message: 'Please enter employee last name:',
-//             },
-//             {
-//                 type: 'input',
-//                 name: 'role_id',
-//                 message: 'Please enter their role ID:',
-//             },
-//             {
-//                 type: 'input',
-//                 name: 'manager_id',
-//                 message: 'Please enter the manager ID:'
-//             },
-//         ])
-// }
-
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'first_name',
+                message: 'Please enter employee first name:',
+            },
+            {
+                type: 'input',
+                name: 'last_name',
+                message: 'Please enter employee last name:',
+            },
+            {
+                type: 'input',
+                name: 'role_id',
+                message: 'Please enter their role ID:',
+            },
+            {
+                type: 'input',
+                name: 'manager_id',
+                message: 'Please enter the manager ID:'
+            },
+        ])
+        .then ((response) => {
+            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`, [response.first_name, response.last_name, response.role_id, response.manager_id], (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log(`\nSuccessfully added new role!\n`);
+                viewEmployees();
+            })
+        })
+}
 
 //update an employee
+function updateEmployee() {
+
+}
