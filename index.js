@@ -40,7 +40,7 @@ function homePage () {
             viewEmployees();
             break;
         case 'Add a Department':
-
+            addDepartment();
             break;
         case 'Add a role':
             break;
@@ -90,16 +90,57 @@ function viewEmployees() {
         }
         console.table(result);
         homePage();
-    })
-}
+    });
+};
 
 //add a department
-
-
+function addDepartment() {
+    inquirer.prompt ([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Please enter the name of the new department:'
+        },
+    ])
+    .then ((response) => {
+        db.query(`INSERT INTO department (name) VALUES (?)`, [response.name], (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            console.table(result);
+            viewDepartments();
+        })
+    });
+};
 //add a role
 
 
 //add an employee
+// function addEmployee() {
+//     inquirer
+//         .prompt([
+//             {
+//                 type: 'input',
+//                 name: 'first_name',
+//                 message: 'Please enter employee first name:',
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'last_name',
+//                 message: 'Please enter employee last name:',
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'role_id',
+//                 message: 'Please enter their role ID:',
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'manager_id',
+//                 message: 'Please enter the manager ID:'
+//             },
+//         ])
+// }
 
 
 //update an employee
