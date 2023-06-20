@@ -181,5 +181,28 @@ function addEmployee() {
 
 //update an employee
 function updateEmployee() {
-
+//show employees and roles first?
+    viewEmployees();
+    viewRoles();
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'empID',
+            message: 'Please enter the ID of the employee you are updating:',
+        },
+        {
+            type:'input',
+            name: 'roleID',
+            message: 'Please choose a new role for this employee by entering the corresponding role ID:',
+        },
+    ])
+    .then((response) => {
+        db.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [response.roleID, response.empID], (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log(`\nSuccessfully updated employee role!\n`);
+            viewEmployees();
+        })
+    })
 }
