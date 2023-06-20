@@ -25,4 +25,4 @@ VALUES ();
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 -- WHEN I choose to update an employee role
 -- THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-UPDATE employee SET
+UPDATE employee SET role_id = ? WHERE id =?
