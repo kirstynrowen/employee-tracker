@@ -23,6 +23,9 @@ function homePage () {
         }
     ])
     .then((response) => {
-        
+//switch/case for queries
     })
-} 
+};
+
+//functions for sql queries
+
