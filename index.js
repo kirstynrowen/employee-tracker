@@ -2,7 +2,12 @@
 const inquirer = require('inquirer');
 const table = require('console.table');
 //import db materials
-const db = require('./db');
+const db = require('./db/connection');
+
+//connect to database
+db.connect(() => {
+    init();
+})
 
 function homePage () {
     inquirer
